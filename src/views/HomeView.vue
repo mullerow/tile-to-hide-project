@@ -31,4 +31,17 @@ export default {
   border: 2px solid black;
   text-align: center;
 }
+
+.single-tile:hover {
+  background-color: goldenrod;
+  animation: rotate-tile 1s forwards;
+}
+
+@keyframes rotate-tile {
+  0% {
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
 </style>
