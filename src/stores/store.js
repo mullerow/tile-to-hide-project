@@ -12,14 +12,14 @@ export const store = defineStore('Store', {
       tileYCoordinates: []
     },
     temporayData: {
-      amountRows: 6, // hier stimmt noch was nicht
-      amountColumns: 7
+      amountRows: 5,
+      amountColumns: 6
     }
   }),
   actions: {
     initialCalcOfCoordinates() {
-      for (let x = 1; x <= this.temporayData.amountColumns; x++) {
-        for (let y = 1; y <= this.temporayData.amountRows; y++) {
+      for (let y = 1; y <= this.temporayData.amountRows; y++) {
+        for (let x = 1; x <= this.temporayData.amountColumns; x++) {
           this.tileData.tileXCoordinates.push(x)
           this.tileData.tileYCoordinates.push(y)
         }

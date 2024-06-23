@@ -45,7 +45,6 @@ export default {
       let hoveredTileXPosition = e.target.attributes.xCoordinates.value
       let hoveredTileYPosition = e.target.attributes.yCoordinates.value
       console.log('target', hoveredTileXPosition, hoveredTileYPosition)
-      console.log('e.target', e.target)
     },
 
     handleMouseLeave(e, index) {
@@ -59,7 +58,6 @@ export default {
     }
   },
   created() {
-    console.log('habs getan')
     this.store.initialCalcOfCoordinates()
   }
 }
