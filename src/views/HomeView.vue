@@ -8,6 +8,8 @@
           v-for="(tile, index) of store.tileData.number"
           :key="index"
           :data-id="index"
+          :xCoordinates="store.tileData.tileXCoordinates[index]"
+          :yCoordinates="store.tileData.tileYCoordinates[index]"
           :class="{
             'single-tile': true,
             hovered: hoveredTile === index,
@@ -38,16 +40,12 @@ export default {
       this.tileHoverLeave = null
       const tileId = e.target.getAttribute('data-id')
       console.log('Id:', tileId)
-      // berechne alle nummern der benachtbarten Kacheln
-      for (let y = -6; y < 7; y += 6) {
-        for (let x = -1; x < 2; x++) {
-          let neighbourNumber = Number(tileId) + y + x
-          if (neighbourNumber > 0 && neighbourNumber < this.store.tileData.number.length) {
-            this.neighbourTiles.push(neighbourNumber)
-          }
-        }
-      }
-      console.log('this.neighbourTiles', this.neighbourTiles)
+      // berechne alle koordinaten der benachtbarten Kacheln
+
+      let hoveredTileXPosition = e.target.attributes.xCoordinates.value
+      let hoveredTileYPosition = e.target.attributes.yCoordinates.value
+      console.log('target', hoveredTileXPosition, hoveredTileYPosition)
+      console.log('e.target', e.target)
     },
 
     handleMouseLeave(e, index) {
