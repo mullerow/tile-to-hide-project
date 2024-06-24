@@ -1,25 +1,26 @@
 <template>
   <main>
-    <div class="background-image-tiles">
-      <div class="tile-container">
-        <div
-          @mouseover="handleMouseHover($event, index)"
-          @mouseleave="handleMouseLeave($event, index)"
-          v-for="(tile, index) of store.tileData.number"
-          :key="index"
-          :data-id="index"
-          :xCoordinates="store.tileData.tileXCoordinates[index]"
-          :yCoordinates="store.tileData.tileYCoordinates[index]"
-          :class="{
-            'single-tile': true,
-            hovered: hoveredTile === index,
-            neighbourHovered: indicesOfNeighbourTilesList.includes(index),
-            leaveTile: tileHoverLeave === index
-          }"
-        >
-          {{ tile }}
-        </div>
-      </div>
+    <div class="tile-container">
+      <div
+        @mouseover="handleMouseHover($event, index)"
+        @mouseleave="handleMouseLeave($event, index)"
+        v-for="(tile, index) of store.tileData.number"
+        :key="index"
+        :data-id="index"
+        :xCoordinates="store.tileData.tileXCoordinates[index]"
+        :yCoordinates="store.tileData.tileYCoordinates[index]"
+        :class="{
+          'single-tile': true,
+          hovered: hoveredTile === index,
+          neighbourHovered: indicesOfNeighbourTilesList.includes(index),
+          leaveTile: tileHoverLeave === index
+        }"
+      ></div>
+    </div>
+    <div class="background-container">
+      <div class="background-image-tiles"></div>
+      <div class="hidden-text">Hallo Verena ❤️</div>
+      <div class="hidden-icons">❤️🐮❤️</div>
     </div>
   </main>
 </template>
@@ -91,56 +92,75 @@ export default {
 .tile-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  width: 400px;
+  gap: 0px;
+  width: 500px;
 }
 .single-tile {
   width: 50px;
   height: 50px;
   background-color: blanchedalmond;
-  border: 2px solid black;
+  _border: 2px solid black;
   text-align: center;
 }
 
 .single-tile.hovered {
-  background-color: goldenrod;
+  _background-color: goldenrod;
   animation: rotate-tile-forward 1s forwards;
 }
 .single-tile.neighbourHovered {
-  background-color: goldenrod;
+  _background-color: goldenrod;
   animation: rotate-tile-forward-half 0.5s forwards;
 }
 
 .single-tile.leaveTile {
-  background-color: rgb(231, 200, 120);
+  _background-color: rgb(231, 200, 120);
   animation: rotate-tile-backwards 0.5s backwards;
 }
+.background-container {
+  position: relative;
+}
 .background-image-tiles {
-  width: 350px;
-  height: 290px;
+  top: -300px;
+  position: absolute;
+  width: 250px;
+  height: 190px;
   background-color: goldenrod;
-  z-index: -1;
+  z-index: -10;
+}
+.hidden-text {
+  position: absolute;
+  top: -100px;
+  right: 50px;
+  z-index: -3;
+}
+.hidden-icons {
+  position: absolute;
+  top: -200px;
+  left: 100px;
+  z-index: -3;
 }
 
 @keyframes rotate-tile-forward {
   0% {
   }
   100% {
-    transform: rotateY(180deg);
+    transform: rotateY(270deg);
+    border-radius: 20px;
   }
 }
 @keyframes rotate-tile-backwards {
   0% {
   }
   100% {
-    transform: rotateY(-180deg);
+    transform: rotateY(-90deg) scaleY(0.5);
   }
 }
 @keyframes rotate-tile-forward-half {
   0% {
   }
   100% {
-    transform: rotateY(90deg);
+    transform: rotateY(70deg) scaleY(0.5);
+    border-radius: 20px;
   }
 }
 </style>
