@@ -18,9 +18,7 @@
       ></div>
     </div>
     <div class="background-container">
-      <div class="background-image-tiles"></div>
-      <div class="hidden-text">Hallo Verena ❤️</div>
-      <div class="hidden-icons">❤️🐮❤️</div>
+      <img class="hidden-image" src="@/assets/background.png" />
     </div>
   </main>
 </template>
@@ -100,7 +98,7 @@ export default {
             return opacity
           }
         )
-      }, 3000)
+      }, 5000)
     },
 
     handleMouseLeave(e, index) {
@@ -144,27 +142,13 @@ export default {
 .background-container {
   position: relative;
 }
-.background-image-tiles {
+.hidden-image {
   top: -400px;
   position: absolute;
   width: 400px;
   height: 400px;
   background-color: #7ccaae;
   z-index: -10;
-}
-.hidden-text {
-  position: absolute;
-  top: -100px;
-  left: 150px;
-  z-index: -3;
-  font-size: 30px;
-}
-.hidden-icons {
-  position: absolute;
-  top: -320px;
-  left: 100px;
-  z-index: -3;
-  font-size: 30px;
 }
 
 @keyframes rotate-tile-forward {
