@@ -13,6 +13,7 @@
           :class="{
             'single-tile': true,
             hovered: hoveredTile === index,
+            neighbourHovered: indicesOfNeighbourTilesList.includes(index),
             leaveTile: tileHoverLeave === index
           }"
         >
@@ -39,6 +40,7 @@ export default {
     handleMouseHover(e, index) {
       this.coordinatesNeighbourTilesList = []
       this.indicesOfNeighbourTilesList = []
+      // füge der gehoverten Kachel
       this.hoveredTile = index
       this.tileHoverLeave = null
       const tileId = e.target.getAttribute('data-id')
@@ -50,7 +52,6 @@ export default {
       for (let deltaX = -1; deltaX <= 1; deltaX++) {
         for (let deltaY = -1; deltaY <= 1; deltaY++) {
           if (deltaX === 0 && deltaY === 0) continue // die gehoverte kachel ausschließen
-
           let neighbourTileXcoordinate = hoveredTileXPosition + deltaX
           let neighbourTileYcoordinate = hoveredTileYPosition + deltaY
           this.coordinatesNeighbourTilesList.push([
@@ -64,6 +65,7 @@ export default {
           )
           if (indexOfNeighbourTile !== -1) {
             this.indicesOfNeighbourTilesList.push(indexOfNeighbourTile)
+            this.hoveredTile = index
           }
         }
       }
@@ -73,12 +75,10 @@ export default {
 
     handleMouseLeave(e, index) {
       this.neighbourTiles = []
-      setTimeout(() => {
-        this.tileHoverLeave = index
-      }, 1000),
-        setTimeout(() => {
-          this.hoveredTile = null
-        }, 100)
+
+      this.tileHoverLeave = index
+
+      this.hoveredTile = null
     }
   },
   created() {
@@ -106,6 +106,10 @@ export default {
   background-color: goldenrod;
   animation: rotate-tile-forward 1s forwards;
 }
+.single-tile.neighbourHovered {
+  background-color: goldenrod;
+  animation: rotate-tile-forward-half 0.5s forwards;
+}
 
 .single-tile.leaveTile {
   background-color: rgb(231, 200, 120);
@@ -132,7 +136,7 @@ export default {
     transform: rotateY(-180deg);
   }
 }
-@keyframes rotate-50-percent {
+@keyframes rotate-tile-forward-half {
   0% {
   }
   100% {
