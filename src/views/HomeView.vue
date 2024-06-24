@@ -4,9 +4,8 @@
       <div
         @mouseover="handleMouseHover($event, index)"
         @mouseleave="handleMouseLeave($event, index)"
-        v-for="(tile, index) of store.tileData.number"
+        v-for="index of store.tileData.number"
         :key="index"
-        :data-id="index"
         :xCoordinates="store.tileData.tileXCoordinates[index]"
         :yCoordinates="store.tileData.tileYCoordinates[index]"
         :class="{
@@ -35,7 +34,8 @@ export default {
       hoveredTile: null,
       tileHoverLeave: null,
       coordinatesNeighbourTilesList: [],
-      indicesOfNeighbourTilesList: []
+      indicesOfNeighbourTilesList: [],
+      opacitiyResetTimer: null
     }
   },
   methods: {
@@ -45,8 +45,6 @@ export default {
       // füge der gehoverten Kachel
       this.hoveredTile = index
       this.tileHoverLeave = null
-      const tileId = e.target.getAttribute('data-id')
-      console.log('Id:', tileId)
       // berechne alle koordinaten der direkt benachtbarten Kacheln
       let hoveredTileXPosition = Number(e.target.attributes.xCoordinates.value)
       let hoveredTileYPosition = Number(e.target.attributes.yCoordinates.value)
@@ -86,12 +84,23 @@ export default {
         this.store.tileData.opacityOfTilesList[index] = parseFloat(
           this.store.tileData.opacityOfTilesList[index].toFixed(2)
         )
-
-        console.log(
-          'this.tileData.opacityOfTilesList[index]',
-          this.store.tileData.opacityOfTilesList[index]
-        )
       }
+    },
+    // regeneriere die opacitiy über die zeit
+    startOpacityRecovery() {
+      if (this.opacitiyResetTimer) {
+        clearInterval(this.opacitiyResetTimer)
+      }
+      setInterval(() => {
+        this.store.tileData.opacityOfTilesList = this.store.tileData.opacityOfTilesList.map(
+          (opacity) => {
+            if (opacity < 1) {
+              opacity += 0.1
+            }
+            return opacity
+          }
+        )
+      }, 3000)
     },
 
     handleMouseLeave(e, index) {
@@ -102,6 +111,7 @@ export default {
   },
   created() {
     this.store.initialCalcOfCoordinates()
+    this.startOpacityRecovery()
   }
 }
 </script>
@@ -129,7 +139,7 @@ export default {
 }
 
 .single-tile.leaveTile {
-  animation: rotate-tile-backwards 0.5s backwards;
+  _animation: rotate-tile-backwards 0.5s backwards;
 }
 .background-container {
   position: relative;
@@ -168,7 +178,6 @@ export default {
 }
 @keyframes rotate-tile-backwards {
   0% {
-    border-radius: 15px;
     translate: 0px 30px;
     opacity: 0;
   }
@@ -179,11 +188,10 @@ export default {
 }
 @keyframes rotate-tile-forward-neighbour {
   0% {
-    transform: scale(1);
   }
   100% {
-    border-radius: 15px;
     translate: 0px 30px;
+    opacity: 0;
   }
 }
 </style>
