@@ -101,36 +101,38 @@ export default {
   background-color: blanchedalmond;
   _border: 2px solid black;
   text-align: center;
+  _backdrop-filter: blur(10.5px);
+  background-image: radial-gradient(#ecec84 10%, #ffb69b 60%, #a299ca, #7ccaae 90%);
 }
 
 .single-tile.hovered {
-  _background-color: goldenrod;
-  animation: rotate-tile-forward 1s forwards;
+  opacity: 0;
+  animation: rotate-tile-forward-half 0.5s ease-in-out;
 }
 .single-tile.neighbourHovered {
   _background-color: goldenrod;
-  animation: rotate-tile-forward-half 0.5s forwards;
+  animation: rotate-tile-forward-half 0.3s forwards;
 }
 
 .single-tile.leaveTile {
   _background-color: rgb(231, 200, 120);
-  animation: rotate-tile-backwards 0.5s backwards;
+  _animation: rotate-tile-backwards 0.5s backwards;
 }
 .background-container {
   position: relative;
 }
 .background-image-tiles {
-  top: -300px;
+  top: -500px;
   position: absolute;
-  width: 250px;
-  height: 190px;
-  background-color: goldenrod;
+  width: 500px;
+  height: 500px;
+  background-color: #7ccaae;
   z-index: -10;
 }
 .hidden-text {
   position: absolute;
   top: -100px;
-  right: 50px;
+  left: 350px;
   z-index: -3;
 }
 .hidden-icons {
@@ -144,23 +146,29 @@ export default {
   0% {
   }
   100% {
-    transform: rotateY(270deg);
-    border-radius: 20px;
+    _transform: rotateY(90deg);
+    opacity: 0;
+    border-radius: 25px;
   }
 }
 @keyframes rotate-tile-backwards {
   0% {
   }
   100% {
-    transform: rotateY(-90deg) scaleY(0.5);
+    _transform: rotate(-90deg);
+    opacity: 1;
+    border-radius: 25px;
   }
 }
 @keyframes rotate-tile-forward-half {
   0% {
+    opacity: 1;
+    transform: scale(1);
   }
   100% {
-    transform: rotateY(70deg) scaleY(0.5);
-    border-radius: 20px;
+    opacity: 1;
+    border-radius: 15px;
+    translate: 0px 150px;
   }
 }
 </style>
