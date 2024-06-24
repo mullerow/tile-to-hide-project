@@ -49,7 +49,6 @@ export default {
       // berechne alle koordinaten der benachtbarten Kacheln
       let hoveredTileXPosition = Number(e.target.attributes.xCoordinates.value)
       let hoveredTileYPosition = Number(e.target.attributes.yCoordinates.value)
-      console.log('target', hoveredTileXPosition, hoveredTileYPosition)
       for (let deltaX = -1; deltaX <= 1; deltaX++) {
         for (let deltaY = -1; deltaY <= 1; deltaY++) {
           if (deltaX === 0 && deltaY === 0) continue // die gehoverte kachel ausschließen
@@ -70,15 +69,11 @@ export default {
           }
         }
       }
-      console.log('coordinatesNeighbourTilesList', this.coordinatesNeighbourTilesList)
-      console.log('indicesOfNeighbourTilesList', this.indicesOfNeighbourTilesList)
     },
 
     handleMouseLeave(e, index) {
       this.neighbourTiles = []
-
       this.tileHoverLeave = index
-
       this.hoveredTile = null
     }
   },
@@ -93,82 +88,78 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: 0px;
-  width: 500px;
+  width: 400px;
 }
 .single-tile {
-  width: 50px;
-  height: 50px;
+  width: 10px;
+  height: 10px;
   background-color: blanchedalmond;
-  _border: 2px solid black;
   text-align: center;
-  _backdrop-filter: blur(10.5px);
   background-image: radial-gradient(#ecec84 10%, #ffb69b 60%, #a299ca, #7ccaae 90%);
 }
 
 .single-tile.hovered {
   opacity: 0;
-  animation: rotate-tile-forward-half 0.5s ease-in-out;
+  animation: rotate-tile-forward 0.5s ease-in-out;
 }
 .single-tile.neighbourHovered {
-  _background-color: goldenrod;
   animation: rotate-tile-forward-half 0.3s forwards;
 }
 
 .single-tile.leaveTile {
-  _background-color: rgb(231, 200, 120);
-  _animation: rotate-tile-backwards 0.5s backwards;
+  animation: rotate-tile-backwards 0.5s backwards;
 }
 .background-container {
   position: relative;
 }
 .background-image-tiles {
-  top: -500px;
+  top: -400px;
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   background-color: #7ccaae;
   z-index: -10;
 }
 .hidden-text {
   position: absolute;
   top: -100px;
-  left: 350px;
+  left: 150px;
   z-index: -3;
 }
 .hidden-icons {
   position: absolute;
-  top: -200px;
+  top: -320px;
   left: 100px;
   z-index: -3;
 }
 
 @keyframes rotate-tile-forward {
   0% {
+    opacity: 0;
   }
   100% {
-    _transform: rotateY(90deg);
     opacity: 0;
     border-radius: 25px;
   }
 }
 @keyframes rotate-tile-backwards {
   0% {
+    border-radius: 15px;
+    translate: 0px 30px;
+    opacity: 0;
   }
   100% {
-    _transform: rotate(-90deg);
-    opacity: 1;
-    border-radius: 25px;
+    translate: 0px 0px;
+    opacity: 0;
   }
 }
 @keyframes rotate-tile-forward-half {
   0% {
-    opacity: 1;
     transform: scale(1);
   }
   100% {
-    opacity: 1;
     border-radius: 15px;
-    translate: 0px 150px;
+    translate: 0px 30px;
   }
 }
 </style>
