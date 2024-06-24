@@ -1,6 +1,6 @@
 # ide-by-tile
 
-This template should help get you started developing with Vue 3 in Vite.
+It is a kind of scratch card with any background. It can be used as a component in a Vue.js environment with Vite.
 
 ## Recommended IDE Setup
 
