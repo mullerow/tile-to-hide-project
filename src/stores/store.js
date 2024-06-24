@@ -6,7 +6,8 @@ export const store = defineStore('Store', {
     tileData: {
       number: [],
       tileXCoordinates: [],
-      tileYCoordinates: []
+      tileYCoordinates: [],
+      opacityOfTilesList: []
     },
     temporayData: {
       amountRows: 40,
@@ -23,6 +24,7 @@ export const store = defineStore('Store', {
         for (let x = 1; x <= this.temporayData.amountColumns; x++) {
           this.tileData.tileXCoordinates.push(x)
           this.tileData.tileYCoordinates.push(y)
+          this.tileData.opacityOfTilesList.push(1)
         }
       }
     }

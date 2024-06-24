@@ -15,6 +15,7 @@
           neighbourHovered: indicesOfNeighbourTilesList.includes(index),
           leaveTile: tileHoverLeave === index
         }"
+        :style="{ opacity: this.store.tileData.opacityOfTilesList[index] }"
       ></div>
     </div>
     <div class="background-container">
@@ -46,7 +47,7 @@ export default {
       this.tileHoverLeave = null
       const tileId = e.target.getAttribute('data-id')
       console.log('Id:', tileId)
-      // berechne alle koordinaten der benachtbarten Kacheln
+      // berechne alle koordinaten der direkt benachtbarten Kacheln
       let hoveredTileXPosition = Number(e.target.attributes.xCoordinates.value)
       let hoveredTileYPosition = Number(e.target.attributes.yCoordinates.value)
       for (let deltaX = -1; deltaX <= 1; deltaX++) {
@@ -66,8 +67,30 @@ export default {
           if (indexOfNeighbourTile !== -1) {
             this.indicesOfNeighbourTilesList.push(indexOfNeighbourTile)
             this.hoveredTile = index
+            // verringere die opacity der benachtbarten kacheln
+            if (this.store.tileData.opacityOfTilesList[indexOfNeighbourTile] > 0) {
+              this.store.tileData.opacityOfTilesList[indexOfNeighbourTile] -= 0.2
+              this.store.tileData.opacityOfTilesList[indexOfNeighbourTile] = parseFloat(
+                this.store.tileData.opacityOfTilesList[indexOfNeighbourTile].toFixed(2)
+              )
+            }
           }
         }
+      }
+      // verringere die opacity der gehoverten kachel
+      if (this.store.tileData.opacityOfTilesList[index] < 0) {
+        this.store.tileData.opacityOfTilesList[index] = 0
+      }
+      if (this.store.tileData.opacityOfTilesList[index] > 0) {
+        this.store.tileData.opacityOfTilesList[index] -= 0.2
+        this.store.tileData.opacityOfTilesList[index] = parseFloat(
+          this.store.tileData.opacityOfTilesList[index].toFixed(2)
+        )
+
+        console.log(
+          'this.tileData.opacityOfTilesList[index]',
+          this.store.tileData.opacityOfTilesList[index]
+        )
       }
     },
 
@@ -93,9 +116,8 @@ export default {
 .single-tile {
   width: 10px;
   height: 10px;
-  background-color: blanchedalmond;
   text-align: center;
-  background-image: radial-gradient(#ecec84 10%, #ffb69b 60%, #a299ca, #7ccaae 90%);
+  background-image: radial-gradient(#ecec84 20%, #ffb69b 30%, #a299ca 50%, #7ccaae 90%);
 }
 
 .single-tile.hovered {
@@ -103,7 +125,7 @@ export default {
   animation: rotate-tile-forward 0.5s ease-in-out;
 }
 .single-tile.neighbourHovered {
-  animation: rotate-tile-forward-half 0.3s forwards;
+  animation: rotate-tile-forward-neighbour 0.3s;
 }
 
 .single-tile.leaveTile {
@@ -125,12 +147,14 @@ export default {
   top: -100px;
   left: 150px;
   z-index: -3;
+  font-size: 30px;
 }
 .hidden-icons {
   position: absolute;
   top: -320px;
   left: 100px;
   z-index: -3;
+  font-size: 30px;
 }
 
 @keyframes rotate-tile-forward {
@@ -153,7 +177,7 @@ export default {
     opacity: 0;
   }
 }
-@keyframes rotate-tile-forward-half {
+@keyframes rotate-tile-forward-neighbour {
   0% {
     transform: scale(1);
   }
