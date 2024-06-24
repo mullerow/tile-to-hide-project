@@ -1,4 +1,4 @@
-# ide-by-tile
+# Hide-by-tile-Project
 
 It is a kind of scratch card with any background. It can be used as a component in a Vue.js environment with Vite.
 
