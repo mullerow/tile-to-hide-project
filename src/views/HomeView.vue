@@ -31,12 +31,14 @@ export default {
       store: store(),
       hoveredTile: null,
       tileHoverLeave: null,
-      neighbourTiles: [],
-      array: []
+      coordinatesNeighbourTilesList: [],
+      indicesOfNeighbourTilesList: []
     }
   },
   methods: {
     handleMouseHover(e, index) {
+      this.coordinatesNeighbourTilesList = []
+      this.indicesOfNeighbourTilesList = []
       this.hoveredTile = index
       this.tileHoverLeave = null
       const tileId = e.target.getAttribute('data-id')
@@ -47,12 +49,26 @@ export default {
       console.log('target', hoveredTileXPosition, hoveredTileYPosition)
       for (let deltaX = -1; deltaX <= 1; deltaX++) {
         for (let deltaY = -1; deltaY <= 1; deltaY++) {
+          if (deltaX === 0 && deltaY === 0) continue // die gehoverte kachel ausschließen
+
           let neighbourTileXcoordinate = hoveredTileXPosition + deltaX
           let neighbourTileYcoordinate = hoveredTileYPosition + deltaY
-          this.array.push([neighbourTileXcoordinate, neighbourTileYcoordinate])
+          this.coordinatesNeighbourTilesList.push([
+            neighbourTileXcoordinate,
+            neighbourTileYcoordinate
+          ])
+          let indexOfNeighbourTile = this.store.tileData.tileXCoordinates.findIndex(
+            (xCoord, index) =>
+              xCoord === neighbourTileXcoordinate &&
+              this.store.tileData.tileYCoordinates[index] === neighbourTileYcoordinate
+          )
+          if (indexOfNeighbourTile !== -1) {
+            this.indicesOfNeighbourTilesList.push(indexOfNeighbourTile)
+          }
         }
       }
-      console.log('array', this.array)
+      console.log('coordinatesNeighbourTilesList', this.coordinatesNeighbourTilesList)
+      console.log('indicesOfNeighbourTilesList', this.indicesOfNeighbourTilesList)
     },
 
     handleMouseLeave(e, index) {
