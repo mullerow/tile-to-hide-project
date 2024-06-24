@@ -31,7 +31,8 @@ export default {
       store: store(),
       hoveredTile: null,
       tileHoverLeave: null,
-      neighbourTiles: []
+      neighbourTiles: [],
+      array: []
     }
   },
   methods: {
@@ -41,10 +42,17 @@ export default {
       const tileId = e.target.getAttribute('data-id')
       console.log('Id:', tileId)
       // berechne alle koordinaten der benachtbarten Kacheln
-
-      let hoveredTileXPosition = e.target.attributes.xCoordinates.value
-      let hoveredTileYPosition = e.target.attributes.yCoordinates.value
+      let hoveredTileXPosition = Number(e.target.attributes.xCoordinates.value)
+      let hoveredTileYPosition = Number(e.target.attributes.yCoordinates.value)
       console.log('target', hoveredTileXPosition, hoveredTileYPosition)
+      for (let deltaX = -1; deltaX <= 1; deltaX++) {
+        for (let deltaY = -1; deltaY <= 1; deltaY++) {
+          let neighbourTileXcoordinate = hoveredTileXPosition + deltaX
+          let neighbourTileYcoordinate = hoveredTileYPosition + deltaY
+          this.array.push([neighbourTileXcoordinate, neighbourTileYcoordinate])
+        }
+      }
+      console.log('array', this.array)
     },
 
     handleMouseLeave(e, index) {
