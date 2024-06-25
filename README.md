@@ -2,6 +2,8 @@
 
 It is a kind of scratch card with any background. It can be used as a component in a Vue.js environment with Vite.
 
+here you can try out: <a href="https://codesandbox.io/p/devbox/github/mullerow/tile-to-hide-project/tree/main/" >Hide-by-tile</a>
+
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
