@@ -133,7 +133,7 @@ export default {
   animation: rotate-tile-forward 0.5s ease-in-out;
 }
 .single-tile.neighbourHovered {
-  animation: rotate-tile-forward-neighbour 0.3s;
+  animation: rotate-tile-forward-neighbour 2s;
 }
 
 .single-tile.leaveTile {
@@ -162,19 +162,19 @@ export default {
 }
 @keyframes rotate-tile-backwards {
   0% {
-    translate: 0px 30px;
     opacity: 0;
   }
   100% {
-    translate: 0px 0px;
     opacity: 0;
   }
 }
 @keyframes rotate-tile-forward-neighbour {
   0% {
+    box-shadow: 0px 0px 10px #f5ff00;
   }
   100% {
-    translate: 0px 30px;
+    box-shadow: 0px 0px 25px #f5ff00;
+    transform: scale(3);
     opacity: 0;
   }
 }
