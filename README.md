@@ -1,6 +1,8 @@
-# ide-by-tile
+# Hide-by-tile-Project
 
 It is a kind of scratch card with any background. It can be used as a component in a Vue.js environment with Vite.
+
+here you can try out: <a href="https://codesandbox.io/p/devbox/github/mullerow/tile-to-hide-project/tree/main/" >Hide-by-tile</a>
 
 ## Recommended IDE Setup
 
